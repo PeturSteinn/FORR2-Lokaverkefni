@@ -73,7 +73,7 @@ print()
 #labb(rotta1)
 #labb(rotta2)
 #labb(rotta3)
-while(mus.stad < 100):
+while(mus.stad <= 100):
     print(mus.stad, "Mús staðsetning BEFORE")
     labb(mus)
     print(mus.stad, "Mús staðsetning AFTER")
