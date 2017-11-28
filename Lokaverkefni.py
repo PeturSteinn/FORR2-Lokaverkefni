@@ -10,26 +10,39 @@ class nagdyr:
 
 
 
-def labb(tegund):
+def labb(nagdyr):
     kast = random.randint(1, 6)
     #print(mus.stad, "BEFORE")
-    if (tegund == "mús"):
+    if (nagdyr.teg == "mús"):
         mus.stad += kast
-        print(mus.stad, "AFTER")
+        #print(mus.stad, "AFTER")
 
-    elif (tegund == "rotta"):
+    elif (nagdyr.teg == "rotta"):
         fiddy = random.randint(0,1)
-        kast = random.randint(1,6)
-        print(fiddy, "AFRAM EÐA AFTURABAK")
+        #print(fiddy, "AFRAM EÐA AFTURABAK")
         if fiddy == 0:
-            print(kast, "BEFORE")
+            #print(kast, "BEFORE")
             kast = kast - 7
-            print(kast, "AFTER")
-            return kast
+            #print(kast, "AFTER")
+            nagdyr.stad += kast
+
+
         elif fiddy == 1:
-            print(kast, "BEFORE")
-            print(kast, "AFTER")
-            return kast
+            #print(kast, "BEFORE")
+            #print(kast, "AFTER")
+            nagdyr.stad += kast
+
+    elif (nagdyr.teg == "hamstur"):
+        for i in range(kast):
+            if mus.stad < hamstur.stad:
+                print("Hamstur færir sig niður")
+                hamstur.stad -= 1
+            elif mus.stad > hamstur.stad:
+                print("Hamstur færir sig upp")
+                hamstur.stad += 1
+            elif mus.stad == hamstur.stad:
+                print("Hamstur kastar mús")
+                mus.stad += hamstur.afl
 
 
 
@@ -57,8 +70,16 @@ print(hamstur.upplysingar())
 print()
 #mus.stad += kast
 #labb(mus.teg)
-labb(rotta1.teg)
-labb(rotta2.teg)
-labb(rotta3.teg)
+#labb(rotta1)
+#labb(rotta2)
+#labb(rotta3)
+while(mus.stad < 100):
+    print(mus.stad, "Mús staðsetning BEFORE")
+    labb(mus)
+    print(mus.stad, "Mús staðsetning AFTER")
+    print(hamstur.stad, "Hamstur staðsetning BEFORE")
+    labb(hamstur)
+    print(hamstur.stad, "Hamstur staðsetning AFTER")
+
 #print(kast, "AFTER")
 #print(mus.stad, "AFTER")
