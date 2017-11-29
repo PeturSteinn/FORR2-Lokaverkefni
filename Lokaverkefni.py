@@ -18,24 +18,23 @@ def drawPos():
                    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
     reitir_map = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_',
                   '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
-    reitir_end_mark = [
-        '                                                                                                   |']
-    reitir_end = [
-        '                                                                                                  END']
-    reitir_map[mus.stad - 1] = "^"
-    reitir_nafn[mus.stad - 1] = "M"
-    reitir_map[rotta1.stad - 1] = "*"
-    reitir_nafn[rotta1.stad - 1] = "R"
-    reitir_map[rotta2.stad - 1] = "*"
-    reitir_nafn[rotta2.stad - 1] = "R"
-    reitir_map[rotta3.stad - 1] = "*"
-    reitir_nafn[rotta3.stad - 1] = "R"
-    reitir_map[hamstur.stad - 1] = "O"
-    reitir_nafn[hamstur.stad - 1] = "H"
+    reitir_end_mark = ' ' * 99 + '|'
+    reitir_end = ' ' * 98 + 'END'
+    reitir_map[mus.stad - 1] = bcolors.BLUE + "^" + bcolors.ENDC
+    reitir_nafn[mus.stad - 1] = bcolors.BLUE + "M" + bcolors.ENDC
+    reitir_map[rotta1.stad - 1] = bcolors.RED + "*" + bcolors.ENDC
+    reitir_nafn[rotta1.stad - 1] = bcolors.RED + "R" + bcolors.ENDC
+    reitir_map[rotta2.stad - 1] = bcolors.RED + "*" + bcolors.ENDC
+    reitir_nafn[rotta2.stad - 1] = bcolors.RED + "R" + bcolors.ENDC
+    reitir_map[rotta3.stad - 1] = bcolors.RED + "*" + bcolors.ENDC
+    reitir_nafn[rotta3.stad - 1] = bcolors.RED + "R" + bcolors.ENDC
+    reitir_map[hamstur.stad - 1] = bcolors.YELLOW + "O" + bcolors.ENDC
+    reitir_nafn[hamstur.stad - 1] = bcolors.YELLOW + "H" + bcolors.ENDC
     print("Útkoma: ")
     print("W" * 110)
     print("Mús: ^ m/ staðs. " + str(mus.stad) + " | Rottur: * m/ staðs. (1: " + str(rotta1.stad) + ", 2: " +
-          str(rotta2.stad) + ", 3: " + str(rotta3.stad) + ") | Hamstur: O m/ staðs. " + str(hamstur.stad))
+          str(rotta2.stad) + ", 3: " + str(rotta3.stad) + ") | Hamstur: O m/ staðs. " + str(hamstur.stad) +
+          " | Lota: " + str(round_counter))
     print()
 
     for i in reitir_nafn:
@@ -44,12 +43,8 @@ def drawPos():
     for i in reitir_map:
         print(i, end='')
     print()
-    for i in reitir_end_mark:
-        print(i, end='')
-    print()
-    for i in reitir_end:
-        print(i, end='')
-    print()
+    print(reitir_end_mark)
+    print(reitir_end)
     print()
     print("M" * 110)
 
@@ -92,43 +87,43 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
                 # Viðeigandi rotta slær músina aftur á bak.
                 mus.stad -= rotta1.afl
                 resetMouse()
-                print(rotta1.nafn + " hendir músinni um " + str(rotta1.afl) +
-                      " reiti, mús er nú á reit " + str(mus.stad))
+                print(bcolors.RED + rotta1.nafn + " hendir músinni um " + str(rotta1.afl) +
+                      " reiti, mús er nú á reit " + str(mus.stad) + bcolors.ENDC)
             elif mus.afl > rotta1.afl:
-                print(mus.nafn + " sigrar " + rotta1.nafn +
-                      " því hún er með meira afl")
+                print(bcolors.GREEN + mus.nafn + " sigrar " + rotta1.nafn +
+                      " því hún er með meira afl" + bcolors.ENDC)
 
             else:
-                print("Jafntefli á milli " + mus.nafn + " og " + rotta1.nafn)
+                print(bcolors.YELLOW + "Jafntefli á milli " + mus.nafn + " og " + rotta1.nafn + bcolors.ENDC)
 
         elif abs(mus.stad - rotta2.stad) <= 3:  # Ef músin er nálægt rotta2 (innan við 3 reiti)
             print(mus.nafn + " er nálægt " + rotta2.nafn)
             if mus.afl < rotta2.afl:
                 mus.stad -= rotta2.afl
                 resetMouse()
-                print(rotta2.nafn + " hendir músinni um " + str(rotta2.afl) +
-                      " reiti, mús er nú á reit " + str(mus.stad))
+                print(bcolors.RED + rotta2.nafn + " hendir músinni um " + str(rotta2.afl) +
+                      " reiti, mús er nú á reit " + str(mus.stad) + bcolors.ENDC)
 
             elif mus.afl > rotta2.afl:
-                print(mus.nafn + " sigrar " + rotta2.nafn +
-                      " því hún er með meira afl")
+                print(bcolors.GREEN + mus.nafn + " sigrar " + rotta2.nafn +
+                      " því hún er með meira afl" + bcolors.ENDC)
 
             else:
-                print("Jafntefli á milli " + mus.nafn + " og " + rotta2.nafn)
+                print(bcolors.YELLOW + "Jafntefli á milli " + mus.nafn + " og " + rotta2.nafn + bcolors.ENDC)
         elif abs(mus.stad - rotta3.stad) <= 3:  # Ef músin er nálægt rotta3 (innan við 3 reiti)
             print(mus.nafn + " er nálægt " + rotta3.nafn)
             if mus.afl < rotta3.afl:
                 mus.stad -= rotta3.afl
                 resetMouse()
-                print(rotta3.nafn + " hendir músinni um " + str(rotta3.afl) +
-                      " reiti, mús er nú á reit " + str(mus.stad))
+                print(bcolors.RED + rotta3.nafn + " hendir músinni um " + str(rotta3.afl) +
+                      " reiti, mús er nú á reit " + str(mus.stad) + bcolors.ENDC)
 
             elif mus.afl > rotta3.afl:
-                print(mus.nafn + " sigrar " + rotta3.nafn +
-                      " því hún er með meira afl")
+                print(bcolors.GREEN + mus.nafn + " sigrar " + rotta3.nafn +
+                      " því hún er með meira afl" + bcolors.ENDC)
 
             else:
-                print("Jafntefli á milli " + mus.nafn + " og " + rotta3.nafn)
+                print(bcolors.YELLOW + "Jafntefli á milli " + mus.nafn + " og " + rotta3.nafn + bcolors.ENDC)
 
     # Kast einu sinni skilgreint fyrir eftirfarandi if lykkju.
     kast = random.randint(1, 6)
@@ -137,6 +132,9 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
         counter += 1    # Telur hversu oft músin kastar.
 
         # Hvert skref fyrir sig er athugað og prentað út.
+        print(nagdyr.nafn + " fer til hægri um " + str(abs(kast)) +
+        " reiti og er staðsett núna á " + str(nagdyr.stad))
+
         for i in range(kast):
             print("Mús færir sig frá reit", nagdyr.stad, "yfir á reit ", end='')
             # Einu skrefi bætt við, aðein í eina átt fyrir músina.
@@ -147,7 +145,7 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
 
             # Nú er athugað hvort að hamstur sé kominn til að henda músinni.
             if nagdyr.stad == hamstur.stad:
-                print("Hamstur kastar mús um", hamstur.afl, "reiti")
+                print( bcolors.YELLOW + "Hamstur kastar mús um", hamstur.afl, "reiti" + bcolors.ENDC)
                 # Musinni er hent jafn marga reiti og afl hamstursins.
                 mus.stad += hamstur.afl
             elif nagdyr.stad == 100:
@@ -192,6 +190,8 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
 
     # If lykkja fyrir það ef kallað er í hamstur.
     elif (nagdyr.teg == "hamstur"):
+        print(nagdyr.nafn + " færir sig um " + str(abs(kast)) +
+              " reiti og er staðsettur núna á " + str(nagdyr.stad))
         for i in range(kast):
             if mus.stad < hamstur.stad:
                 print("Hamstur færir sig frá reit",
@@ -204,12 +204,21 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
                 hamstur.stad += 1
                 print(nagdyr.stad)
             elif mus.stad == hamstur.stad:
-                print("Hamstur kastar mús um", nagdyr.afl, "reiti")
+                print(bcolors.YELLOW + "Hamstur kastar mús um", nagdyr.afl, "reiti" + bcolors.ENDC)
                 mus.stad += hamstur.afl
         if mus.stad == hamstur.stad:
-            print("Hamstur kastar mús um", nagdyr.afl, "reiti")
+            print(bcolors.YELLOW + "Hamstur kastar mús um", nagdyr.afl, "reiti" + bcolors.ENDC)
             mus.stad += hamstur.afl
 
+class bcolors:
+    PINK = '\033[95m'       #
+    BLUE = '\033[94m'       #
+    GREEN = '\033[92m'      # Mús vinnur bardaga
+    YELLOW = '\033[93m'     # Hamstur
+    RED = '\033[91m'        # Rottur / mús tapar bardaga
+    ENDC = '\033[0m'        # Reset
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 
 # Breytur
@@ -219,6 +228,7 @@ switchDirection = False
 counter = 0
 round_counter = 0
 reitir = ''
+timiMS = 300
 mus = nagdyr('Mús', 'mús', 1, random.randrange(2, 7, 2))
 rotta1 = nagdyr('Rotta1', 'rotta', random.randrange(
     2, 99), random.randrange(2, 7, 2))
@@ -229,14 +239,11 @@ rotta3 = nagdyr('Rotta3', 'rotta', random.randrange(
 hamstur = nagdyr('Hamstur', 'hamstur', random.randrange(
     2, 99), random.randrange(2, 7, 2))
 
-# Nagdýr kynnt
-print(mus.upplysingar())
-print(rotta1.upplysingar())
-print(rotta2.upplysingar())
-print(rotta3.upplysingar())
-print(hamstur.upplysingar())
 
-
+try:
+    timiMS = int(input("Hversu lengi á hver lota að vera í (milli sekúndum), default = 300ms (ýttu á enter fyrir default): "))
+except:
+    timiMS = 300
 print()
 # Hér keyrir leikurinn
 while True:
@@ -249,6 +256,7 @@ while True:
     print(rotta2.upplysingar())
     print(rotta3.upplysingar())
     print(hamstur.upplysingar())
+    print()
     action(mus)
     print()
     action(rotta1)
@@ -261,7 +269,20 @@ while True:
     print()
     drawPos()
     footer()
-    #time.sleep(1)
+    time.sleep(timiMS / 1000)
 
 
 print("Músin kastaði " + str(counter) + " sinnum.")
+
+
+
+
+
+
+
+
+
+
+
+
+
