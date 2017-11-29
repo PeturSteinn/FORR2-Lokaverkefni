@@ -10,7 +10,6 @@ class nagdyr:   # Nagdýr búið til og gefið nafn, tegund, staðsetningu, afl
         return "Nafn: " + self.nafn + " | Tegund: " + self.teg + ' | Staðsetninging: ' + str(self.stad) + ' | Afl: ' + str(self.afl)
 
 def drawPos():
-    reitir_allt = str()
     reitir_nafn = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
     reitir_map = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
     reitir_end_mark = ['                                                                                                   |']
@@ -25,6 +24,10 @@ def drawPos():
     reitir_nafn[rotta3.stad - 1] = "R"
     reitir_map[hamstur.stad - 1] = "O"
     reitir_nafn[hamstur.stad - 1] = "H"
+    print("Útkoma: ")
+    print("W" * 110)
+    print("Mús: ^ | Rottur: * | Hamstur: O")
+    print()
     for i in reitir_nafn:
         print(i, end='')
     print()
@@ -37,7 +40,29 @@ def drawPos():
     for i in reitir_end:
         print(i, end='')
     print()
+    print()
+    print("M" * 110)
 
+def header():
+    round_number_string = " Round " + str(round_counter) + " "
+    print("--------------------------------------------------------------------------------------------------------------")
+    header_string_1 = "*" * int(110 / 2 - len(round_number_string)) + round_number_string
+    header_string_2 = "*" * int(110 - len(header_string_1))
+    print(header_string_1 + header_string_2)
+
+def footer():
+    print()
+    print("*" * 110)
+    print("-" * 110)
+    print()
+    print()
+    print()
+
+
+
+def resetMouse():
+    if mus.stad <= 0:
+        mus.stad = 0
 
 def action(nagdyr): # Þessi def tekur við hvaða nagdýri sem er og keyrir það á viðeigandi hátt
     global switchDirection  # Hægt er að nota þessa bool núna hvar sem er.
@@ -47,8 +72,9 @@ def action(nagdyr): # Þessi def tekur við hvaða nagdýri sem er og keyrir þa
         if abs(mus.stad - rotta1.stad) <= 3: # Ef músin er nálægt rotta1 (innan við 3 reiti)
             print(mus.nafn + " er nálægt " + rotta1.nafn)
             if mus.afl < rotta1.afl:
-                print(rotta1.nafn + " hendir músinni um " + str(rotta1.afl) + " reiti")
                 mus.stad -= rotta1.afl  # Viðeigandi rotta slær músina aftur á bak.
+                resetMouse()
+                print(rotta1.nafn + " hendir músinni um " + str(rotta1.afl) + " reiti, mús er nú á reit " + str(mus.stad))
             elif mus.afl > rotta1.afl:
                 print(mus.nafn + " sigrar " + rotta1.nafn + " því hún er með meira afl")
 
@@ -58,8 +84,9 @@ def action(nagdyr): # Þessi def tekur við hvaða nagdýri sem er og keyrir þa
         elif abs(mus.stad - rotta2.stad) <= 3: # Ef músin er nálægt rotta2 (innan við 3 reiti)
             print(mus.nafn + " er nálægt " + rotta2.nafn)
             if mus.afl < rotta2.afl:
-                print(rotta2.nafn + " hendir músinni um " + str(rotta2.afl) + " reiti")
                 mus.stad -= rotta2.afl
+                resetMouse()
+                print(rotta2.nafn + " hendir músinni um " + str(rotta2.afl) + " reiti, mús er nú á reit " + str(mus.stad))
 
             elif mus.afl > rotta2.afl:
                 print(mus.nafn + " sigrar " + rotta2.nafn + " því hún er með meira afl")
@@ -69,8 +96,9 @@ def action(nagdyr): # Þessi def tekur við hvaða nagdýri sem er og keyrir þa
         elif abs(mus.stad - rotta3.stad) <= 3: # Ef músin er nálægt rotta3 (innan við 3 reiti)
             print(mus.nafn + " er nálægt " + rotta3.nafn)
             if mus.afl < rotta3.afl:
-                print(rotta3.nafn + " hendir músinni um " + str(rotta3.afl) + " reiti")
                 mus.stad -= rotta3.afl
+                resetMouse()
+                print(rotta3.nafn + " hendir músinni um " + str(rotta3.afl) + " reiti, mús er nú á reit " + str(mus.stad))
 
             elif mus.afl > rotta3.afl:
                 print(mus.nafn + " sigrar " + rotta3.nafn + " því hún er með meira afl")
@@ -83,6 +111,7 @@ def action(nagdyr): # Þessi def tekur við hvaða nagdýri sem er og keyrir þa
     # Kast er nýtt fyrir hvert nagdýr þó.
     if (nagdyr.teg == "mús"):   # If lykkja fyrir það ef kallað er í mús.
         counter += 1    # Telur hversu oft músin kastar.
+
         for i in range(kast):   # Hvert skref fyrir sig er athugað og prentað út.
             print("Mús færir sig frá reit", nagdyr.stad, "yfir á reit ", end='')
             mus.stad += 1   # Einu skrefi bætt við, aðein í eina átt fyrir músina.
@@ -152,6 +181,7 @@ kast = 0
 fiddy = 0
 switchDirection = False
 counter = 0
+round_counter = 0
 reitir = ''
 mus = nagdyr('Mús','mús' , 1 , random.randrange(2,7,2))
 rotta1 = nagdyr('Rotta1','rotta' , random.randrange(2,99) , random.randrange(2,7,2))
@@ -170,10 +200,11 @@ print(hamstur.upplysingar())
 print()
 # Hér keyrir leikurinn
 while True:
-    drawPos()
-    action(mus)
-    if (mus.stad >= 100): # Ef músin er komin yfir 100 reiti klárast leikurinn.
+    if (mus.stad >= 100):  # Ef músin er komin yfir 100 reiti klárast leikurinn.
         break
+    round_counter += 1
+    header()
+    action(mus)
     print()
     action(rotta1)
     print()
@@ -183,5 +214,8 @@ while True:
     print()
     action(hamstur)
     print()
-drawPos()
+    drawPos()
+    footer()
+
+
 print("Músin kastaði " + str(counter) + " sinnum.")
