@@ -14,4 +14,10 @@ Bættum við combat systeminu og forrit að mestu leyti tilbúið.
 #### **28.11.17 kl 21**
 Bættum við nokkurskonar GUI sem er augljóslega samt bara CLI.  
 Hægt er að sjá hvar músin, rotturnar, hamsturinn og enda-línan er.
+#### **29.11.17 kl 18**
+Bættum við uppfærslu á mappinu, núna eru litir sem skilgreina  
+nagdýrin betur í sundur. Líka eru komnir litir fyrir textann sem segir  
+hvað gerist í hverri lotu (ef bardagi kemur upp er það rauður texti,  
+ef hamstur kastar mús er það gulur texti osfl.).
+
 ## Helgi Tuan og Pétur Steinn
