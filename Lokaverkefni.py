@@ -13,30 +13,31 @@ class nagdyr:   # Nagdýr búið til og gefið nafn, tegund, staðsetningu, afl
         return "Nafn: " + self.nafn + " | Tegund: " + self.teg + ' | Staðsetninging: ' + str(self.stad) + ' | Afl: ' + str(self.afl)
 
 
-def drawPos():
+def drawPos(): # Prentar map á skjáinn með staðsetningunum á öllum nagdýrunum.
     reitir_nafn = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
                    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
     reitir_map = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_',
                   '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
     reitir_end_mark = ' ' * 99 + '|'
     reitir_end = ' ' * 98 + 'END'
-    reitir_map[mus.stad - 1] = bcolors.BLUE + "^" + bcolors.ENDC
+    # Hér replace-ar forritið stökum í listum út fyrir viðeigandi merkingu.
+    reitir_map[mus.stad - 1] = bcolors.BLUE + bcolors.UNDERLINE + "^" + bcolors.ENDC
     reitir_nafn[mus.stad - 1] = bcolors.BLUE + "M" + bcolors.ENDC
-    reitir_map[rotta1.stad - 1] = bcolors.RED + "*" + bcolors.ENDC
+    reitir_map[rotta1.stad - 1] = bcolors.RED + bcolors.UNDERLINE + "*" + bcolors.ENDC
     reitir_nafn[rotta1.stad - 1] = bcolors.RED + "R" + bcolors.ENDC
-    reitir_map[rotta2.stad - 1] = bcolors.RED + "*" + bcolors.ENDC
+    reitir_map[rotta2.stad - 1] = bcolors.RED + bcolors.UNDERLINE + "*" + bcolors.ENDC
     reitir_nafn[rotta2.stad - 1] = bcolors.RED + "R" + bcolors.ENDC
-    reitir_map[rotta3.stad - 1] = bcolors.RED + "*" + bcolors.ENDC
+    reitir_map[rotta3.stad - 1] = bcolors.RED + bcolors.UNDERLINE + "*" + bcolors.ENDC
     reitir_nafn[rotta3.stad - 1] = bcolors.RED + "R" + bcolors.ENDC
-    reitir_map[hamstur.stad - 1] = bcolors.YELLOW + "O" + bcolors.ENDC
+    reitir_map[hamstur.stad - 1] = bcolors.YELLOW + bcolors.UNDERLINE + "O" + bcolors.ENDC
     reitir_nafn[hamstur.stad - 1] = bcolors.YELLOW + "H" + bcolors.ENDC
     print("Útkoma: ")
     print("W" * 110)
-    print("Mús: ^ m/ staðs. " + str(mus.stad) + " | Rottur: * m/ staðs. (1: " + str(rotta1.stad) + ", 2: " +
+    print("Mús: ^ m/ staðs. " + str(mus.stad) + " | Rottur: * m/ staðs. (1: " + str(rotta1.stad) + ", 2: " + # Prentar stats.
           str(rotta2.stad) + ", 3: " + str(rotta3.stad) + ") | Hamstur: O m/ staðs. " + str(hamstur.stad) +
           " | Lota: " + str(round_counter))
     print()
-
+    # Hér fer forritið í gegnum listana og prentar þá út.
     for i in reitir_nafn:
         print(i, end='')
     print()
@@ -49,7 +50,7 @@ def drawPos():
     print("M" * 110)
 
 
-def header():
+def header(): # Skilgreinir byrjun lotu.
     print()
     print()
     print()
@@ -61,14 +62,14 @@ def header():
     print(header_string_1 + header_string_2)
 
 
-def footer():
+def footer(): # Skilgreinir lok lotu.
     print()
     print("*" * 110)
     print("-" * 110)
 
 
 
-def resetMouse():
+def resetMouse(): # Passar að músin fari ekki utan við reitina.
     if mus.stad <= 0:
         mus.stad = 1
 
@@ -89,11 +90,11 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
                 resetMouse()
                 print(bcolors.RED + rotta1.nafn + " hendir músinni um " + str(rotta1.afl) +
                       " reiti, mús er nú á reit " + str(mus.stad) + bcolors.ENDC)
-            elif mus.afl > rotta1.afl:
+            elif mus.afl > rotta1.afl: # Hér vinnur músin ef hún er með meira afl en rottan.
                 print(bcolors.GREEN + mus.nafn + " sigrar " + rotta1.nafn +
                       " því hún er með meira afl" + bcolors.ENDC)
 
-            else:
+            else:   # Ef þær eru með jafn mikið afl, fer músin framhjá rottunni.
                 print(bcolors.YELLOW + "Jafntefli á milli " + mus.nafn + " og " + rotta1.nafn + bcolors.ENDC)
 
         elif abs(mus.stad - rotta2.stad) <= 3:  # Ef músin er nálægt rotta2 (innan við 3 reiti)
@@ -152,29 +153,29 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
                 break   # Ef músin er kominn á reit 100, klárast leikurinn.
 
     elif (nagdyr.teg == "rotta"):   # If lykkja fyrir það ef kallað er í rottu.
-        fiddy = random.randint(0, 1)
-        if fiddy == 0:
+        fiddy = random.randint(0, 1) # fiddy ræður hvort rottan fer til hægri eða vinstri.
+        if fiddy == 0: # Ef hún fer til vinstri.
             kast = kast - 7
-            print(nagdyr.nafn + " fer til vinstri um " + str(abs(kast)) +
+            print(nagdyr.nafn + " fer til vinstri um " + str(abs(kast)) + # Kast prentað.
                   " reiti og er staðsett núna á " + str(nagdyr.stad))
 
-            for i in range(abs(kast)):
-                if nagdyr.stad <= 1 or switchDirection:
-                    print(nagdyr.nafn + " færir sig frá reit",
+            for i in range(abs(kast)): # Eitt skref í einu.
+                if nagdyr.stad <= 1 or switchDirection: # Ef rottan er komin lengst til vinstri eða hún sé núþegar búin að skipta um stefnu.
+                    print(nagdyr.nafn + " færir sig frá reit", # Hvert skref prentað út.
                           nagdyr.stad, "yfir á reit ", end='')
                     nagdyr.stad += 1
                     print(nagdyr.stad)
-                    switchDirection = True
+                    switchDirection = True # Þessi bool skiptir ekki um stefnu í hvert sinn sem hún verður True, bara einu sinni og því er allt í lagi að hún verði aftur True.
 
                 else:
                     print(nagdyr.nafn + " færir sig frá reit",
                           nagdyr.stad, "yfir á reit ", end='')
                     nagdyr.stad -= 1
                     print(nagdyr.stad)
-                checkIfCombat()
-
-        elif fiddy == 1:
-            print(nagdyr.nafn + " fer til hægri um " + str(abs(kast)) +
+                checkIfCombat() # Eftir hvert skref athugar forritið hvort mús sé nálægt.
+        # Allt sama og þegar hún fer til vinstri.
+        elif fiddy == 1: # Ef hún fer til hægri
+            print(nagdyr.nafn + " fer til hægri um " + str(abs(kast)) + # Kast prentað.
                   " reiti og er staðsett núna á " + str(nagdyr.stad))
             for i in range(kast):
                 if nagdyr.stad >= 100 or switchDirection:
@@ -189,10 +190,10 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
                 checkIfCombat()
 
     # If lykkja fyrir það ef kallað er í hamstur.
-    elif (nagdyr.teg == "hamstur"):
-        print(nagdyr.nafn + " færir sig um " + str(abs(kast)) +
+    elif (nagdyr.teg == "hamstur"): # Hamstur mun koma til með að elta músina hvert sem hún fer, rottur gera hamstrinum ekkert mein.
+        print(nagdyr.nafn + " færir sig um " + str(abs(kast)) + # Kast prentað.
               " reiti og er staðsettur núna á " + str(nagdyr.stad))
-        for i in range(kast):
+        for i in range(kast): # Forrit reiknar aðstæður við hvert skref.
             if mus.stad < hamstur.stad:
                 print("Hamstur færir sig frá reit",
                       nagdyr.stad, "yfir á reit ", end='')
@@ -203,16 +204,17 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
                       nagdyr.stad, "yfir á reit ", end='')
                 hamstur.stad += 1
                 print(nagdyr.stad)
-            elif mus.stad == hamstur.stad:
+            elif mus.stad == hamstur.stad: # Hér kastar hamsturinn músinni ef hann lendir á henni í því skrefi sem hann er í.
                 print(bcolors.YELLOW + "Hamstur kastar mús um", nagdyr.afl, "reiti" + bcolors.ENDC)
                 mus.stad += hamstur.afl
-        if mus.stad == hamstur.stad:
+        if mus.stad == hamstur.stad: # Hér kastar hamsturinn músinni ef síðasta skrefið hanns lendir á músinni, hin elif lykkjan virkar ekki í það.
             print(bcolors.YELLOW + "Hamstur kastar mús um", nagdyr.afl, "reiti" + bcolors.ENDC)
             mus.stad += hamstur.afl
 
+# Litir sem notast er við í forritinu.
 class bcolors:
-    PINK = '\033[95m'       #
-    BLUE = '\033[94m'       #
+    PINK = '\033[95m'
+    BLUE = '\033[94m'
     GREEN = '\033[92m'      # Mús vinnur bardaga
     YELLOW = '\033[93m'     # Hamstur
     RED = '\033[91m'        # Rottur / mús tapar bardaga
@@ -228,7 +230,7 @@ switchDirection = False
 counter = 0
 round_counter = 0
 reitir = ''
-timiMS = 300
+timiMS = ''
 mus = nagdyr('Mús', 'mús', 1, random.randrange(2, 7, 2))
 rotta1 = nagdyr('Rotta1', 'rotta', random.randrange(
     2, 99), random.randrange(2, 7, 2))
@@ -239,17 +241,18 @@ rotta3 = nagdyr('Rotta3', 'rotta', random.randrange(
 hamstur = nagdyr('Hamstur', 'hamstur', random.randrange(
     2, 99), random.randrange(2, 7, 2))
 
-
+# Hér byður forrit notanda um hversu hratt mappið á að birtast.
 try:
     timiMS = int(input("Hversu lengi á hver lota að vera í (milli sekúndum), default = 300ms (ýttu á enter fyrir default): "))
-except:
+except: # Ef ýtt er bara á enter keyrir hún forritið á 300ms
     timiMS = 300
+
 print()
 # Hér keyrir leikurinn
 while True:
     if (mus.stad >= 100):  # Ef músin er komin yfir 100 reiti klárast leikurinn.
         break
-    round_counter += 1
+    round_counter += 1  # Lotu-teljari
     header()
     print(mus.upplysingar())
     print(rotta1.upplysingar())
@@ -269,7 +272,7 @@ while True:
     print()
     drawPos()
     footer()
-    time.sleep(timiMS / 1000)
+    time.sleep(int(timiMS) / 1000)  # Forrit keyrir á þessum hraða.
 
 
 print("Músin kastaði " + str(counter) + " sinnum.")
