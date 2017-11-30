@@ -19,5 +19,16 @@ Bættum við uppfærslu á mappinu, núna eru litir sem skilgreina
 nagdýrin betur í sundur. Líka eru komnir litir fyrir textann sem segir  
 hvað gerist í hverri lotu (ef bardagi kemur upp er það rauður texti,  
 ef hamstur kastar mús er það gulur texti osfl.).
+#### **30.11.17 kl 11**
+Mættum í skólann til að sýna snorra, rotturnar áttu til með að vera of  
+sterkar en þá bættum við bara meira afli á hamsturinn svo hann verði  
+allavega alltaf 3 - 7.
+
+Erum að pæla í því hvort að við ættum að minnka range-ið þar sem  
+að mús og rotta berjast við.
+#### **30.11.17 kl 14**
+Bættum við valmynd, þú velur hvort nagdýrin fá random stats eða  
+random, svo velur notandi difficulty. Difficulty er bara í raunini hversu  
+margir reitir eiga að vera á milli músa og rottu til að bardagi verði triggered.
 
 ## Helgi Tuan og Pétur Steinn

@@ -30,21 +30,24 @@ def drawPos():  # Prentar map á skjáinn með staðsetningunum á öllum nagdý
     reitir_end_mark = ' ' * 99 + '|'
     reitir_end = ' ' * 98 + 'END'
     # Hér replace-ar forritið stökum í listum út fyrir viðeigandi merkingu.
-    reitir_map[mus.stad - 1] = bcolors.BLUE + \
-        bcolors.UNDERLINE + "^" + bcolors.ENDC
-    reitir_nafn[mus.stad - 1] = bcolors.BLUE + "M" + bcolors.ENDC
-    reitir_map[rotta1.stad - 1] = bcolors.RED + \
-        bcolors.UNDERLINE + "*" + bcolors.ENDC
-    reitir_nafn[rotta1.stad - 1] = bcolors.RED + "R" + bcolors.ENDC
-    reitir_map[rotta2.stad - 1] = bcolors.RED + \
-        bcolors.UNDERLINE + "*" + bcolors.ENDC
-    reitir_nafn[rotta2.stad - 1] = bcolors.RED + "R" + bcolors.ENDC
-    reitir_map[rotta3.stad - 1] = bcolors.RED + \
-        bcolors.UNDERLINE + "*" + bcolors.ENDC
-    reitir_nafn[rotta3.stad - 1] = bcolors.RED + "R" + bcolors.ENDC
-    reitir_map[hamstur.stad - 1] = bcolors.YELLOW + \
-        bcolors.UNDERLINE + "O" + bcolors.ENDC
-    reitir_nafn[hamstur.stad - 1] = bcolors.YELLOW + "H" + bcolors.ENDC
+    try:
+        reitir_map[mus.stad - 1] = bcolors.BLUE + \
+            bcolors.UNDERLINE + "^" + bcolors.ENDC
+        reitir_nafn[mus.stad - 1] = bcolors.BLUE + "M" + bcolors.ENDC
+        reitir_map[rotta1.stad - 1] = bcolors.RED + \
+            bcolors.UNDERLINE + "*" + bcolors.ENDC
+        reitir_nafn[rotta1.stad - 1] = bcolors.RED + "R" + bcolors.ENDC
+        reitir_map[rotta2.stad - 1] = bcolors.RED + \
+            bcolors.UNDERLINE + "*" + bcolors.ENDC
+        reitir_nafn[rotta2.stad - 1] = bcolors.RED + "R" + bcolors.ENDC
+        reitir_map[rotta3.stad - 1] = bcolors.RED + \
+            bcolors.UNDERLINE + "*" + bcolors.ENDC
+        reitir_nafn[rotta3.stad - 1] = bcolors.RED + "R" + bcolors.ENDC
+        reitir_map[hamstur.stad - 1] = bcolors.YELLOW + \
+            bcolors.UNDERLINE + "O" + bcolors.ENDC
+        reitir_nafn[hamstur.stad - 1] = bcolors.YELLOW + "H" + bcolors.ENDC
+    except:
+        pass
     print("Útkoma: ")
     print("W" * 110)
     # Prentar stats.
@@ -96,13 +99,14 @@ def checkIfWon():
 def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir það á viðeigandi hátt
     global switchDirection  # Hægt er að nota þessa bool núna hvar sem er.
     global counter
+    global difficulty
     # Þessi boolean breyta er til að sjá til þess að rotturnar klessa ekki á vegg og snúa þeim við þegar þær gera það
     # og meir að segja láta þær halda áfram með skrefin sem þau eiga eftir.
     switchDirection = False
 
     # Þessi def athugar hvort rottur séu nálægt mús og keyrir á viðeigandi hátt.
     def checkIfCombat():
-        if abs(mus.stad - rotta1.stad) <= 3:  # Ef músin er nálægt rotta1 (innan við 3 reiti)
+        if abs(mus.stad - rotta1.stad) <= difficulty:  # Ef músin er nálægt rotta1 (innan við 3 reiti)
             print(mus.nafn + " er nálægt " + rotta1.nafn)
             if mus.afl < rotta1.afl:
                 # Viðeigandi rotta slær músina aftur á bak.
@@ -118,7 +122,7 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
                 print(bcolors.YELLOW + "Jafntefli á milli " +
                       mus.nafn + " og " + rotta1.nafn + bcolors.ENDC)
 
-        elif abs(mus.stad - rotta2.stad) <= 3:  # Ef músin er nálægt rotta2 (innan við 3 reiti)
+        elif abs(mus.stad - rotta2.stad) <= difficulty:  # Ef músin er nálægt rotta2 (innan við 3 reiti)
             print(mus.nafn + " er nálægt " + rotta2.nafn)
             if mus.afl < rotta2.afl:
                 mus.stad -= rotta2.afl
@@ -133,7 +137,7 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
             else:
                 print(bcolors.YELLOW + "Jafntefli á milli " +
                       mus.nafn + " og " + rotta2.nafn + bcolors.ENDC)
-        elif abs(mus.stad - rotta3.stad) <= 3:  # Ef músin er nálægt rotta3 (innan við 3 reiti)
+        elif abs(mus.stad - rotta3.stad) <= difficulty:  # Ef músin er nálægt rotta3 (innan við 3 reiti)
             print(mus.nafn + " er nálægt " + rotta3.nafn)
             if mus.afl < rotta3.afl:
                 mus.stad -= rotta3.afl
@@ -185,6 +189,7 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
                   " reiti og er staðsett núna á " + str(nagdyr.stad))
 
             for i in range(abs(kast)):  # Eitt skref í einu.
+                if nagdyr.stad <= 1: nagdyr.stad = 1
                 # Ef rottan er komin lengst til vinstri eða hún sé núþegar búin að skipta um stefnu.
                 if nagdyr.stad <= 1 or switchDirection:
                     print(nagdyr.nafn + " færir sig frá reit",  # Hvert skref prentað út.
@@ -207,6 +212,7 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
             print(nagdyr.nafn + " fer til hægri um " + str(abs(kast)) +  # Kast prentað.
                   " reiti og er staðsett núna á " + str(nagdyr.stad))
             for i in range(kast):
+                if nagdyr.stad >= 100: nagdyr.stad = 100
                 if nagdyr.stad >= 100 or switchDirection:
                     nagdyr.stad -= 1
                     switchDirection = True
@@ -224,6 +230,8 @@ def action(nagdyr):  # Þessi def tekur við hvaða nagdýri sem er og keyrir þ
         print(nagdyr.nafn + " færir sig um " + str(abs(kast)) +  # Kast prentað.
               " reiti og er staðsettur núna á " + str(nagdyr.stad))
         for i in range(kast):  # Forrit reiknar aðstæður við hvert skref.
+            if nagdyr.stad >= 101 or nagdyr.stad <= 0: nagdyr.stad = random.randrange(
+            2, 99)
             if mus.stad < hamstur.stad:
                 print("Hamstur færir sig frá reit",
                       nagdyr.stad, "yfir á reit ", end='')
@@ -268,15 +276,12 @@ counter = 0
 round_counter = 0
 reitir = ''
 timiMS = ''
-mus = nagdyr('Mús', 'mús', 1, random.randrange(2, 7, 2))
-rotta1 = nagdyr('Rotta1', 'rotta', random.randrange(
-    2, 99), random.randrange(2, 7, 2))
-rotta2 = nagdyr('Rotta2', 'rotta', random.randrange(
-    2, 99), random.randrange(2, 7, 2))
-rotta3 = nagdyr('Rotta3', 'rotta', random.randrange(
-    2, 99), random.randrange(2, 7, 2))
-hamstur = nagdyr('Hamstur', 'hamstur', random.randrange(
-    2, 99), random.randrange(3, 8, 2))
+difficulty = 1
+construct_team = ''
+val = True
+val_afl = 0
+val_stad = 0
+
 
 # Hér byður forrit notanda um hversu hratt mappið á að birtast.
 try:
@@ -284,6 +289,60 @@ try:
         "Hversu lengi á hver lota að vera í (milli sekúndum), default = 300ms (ýttu á enter fyrir default): "))
 except:  # Ef ýtt er bara á enter keyrir hún forritið á 300ms
     timiMS = 300
+
+# Hér velur notandi hvort hann vilji random stats á nagdýrunum eða velja sjálfur.
+while True:
+    construct_team = input("Viltu fá random stats á nagdýrin eða velja sjálfur (R/M): ").upper()
+    if construct_team == 'R':
+        print("Random mode")
+        mus = nagdyr('Mús', 'mús', 1, random.randrange(2, 7, 2))
+        rotta1 = nagdyr('Rotta1', 'rotta', random.randrange(
+            2, 99), random.randrange(2, 7, 2))
+        rotta2 = nagdyr('Rotta2', 'rotta', random.randrange(
+            2, 99), random.randrange(2, 7, 2))
+        rotta3 = nagdyr('Rotta3', 'rotta', random.randrange(
+            2, 99), random.randrange(2, 7, 2))
+        hamstur = nagdyr('Hamstur', 'hamstur', random.randrange(
+            2, 99), random.randrange(3, 8, 2))
+        break
+
+    elif construct_team == 'M':
+        print("Manual mode")
+        print("Ef staðsetning nagdýranna er minna en 1 eða meira en 100 resetar forritið staðsetningarnar")
+        val_afl = int(input("Afl mús: "))
+        mus = nagdyr('Mús', 'mús', 1, val_afl)
+        val_afl = int(input("Afl rottu 1: "))
+        val_stad = int(input("Staðs. rottu 1: "))
+        rotta1 = nagdyr('Rotta1', 'rotta', val_stad, val_afl)
+        val_afl = int(input("Afl rottu 2: "))
+        val_stad = int(input("Staðs rottu 1: "))
+        rotta2 = nagdyr('Rotta2', 'rotta', val_stad, val_afl)
+        val_afl = int(input("Afl rottu 3: "))
+        val_stad = int(input("Staðs rottu 1: "))
+        rotta3 = nagdyr('Rotta3', 'rotta', val_stad, val_afl)
+        val_afl = int(input("Afl hamsturs: "))
+        val_stad = int(input("Staðs hamsturs: "))
+        hamstur = nagdyr('Hamstur', 'hamstur', val_stad, val_afl)
+        break
+    else:
+        print(bcolors.RED + "Vitlaust valið" + bcolors.ENDC)
+
+print()
+print(mus.upplysingar())
+print(rotta1.upplysingar())
+print(rotta2.upplysingar())
+print(rotta3.upplysingar())
+print(hamstur.upplysingar())
+print()
+
+# Difficulty sett.
+while True:
+    difficulty = int(input("Difficulty (1 - 3) (mæli með 1): "))
+
+    if difficulty >= 1 and difficulty <= 3:
+        break
+    else:
+        print(bcolors.RED + "Vitlaust valið" + bcolors.ENDC)
 
 print()
 # Hér keyrir leikurinn
